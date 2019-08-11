@@ -37,6 +37,8 @@ RUN chmod 400 /root/.ssh/*_id_rsa \
   && eval $(ssh-agent -s) \
   && ssh-add ~/.ssh/*_id_rsa
 
+EXPOSE 3000
+
 # Start zsh
 ENV ZSH_THEME agnoster
 CMD ["zsh"]
