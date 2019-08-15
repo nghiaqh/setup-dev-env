@@ -35,6 +35,8 @@ RUN chmod 400 /root/.ssh/*_id_rsa \
   && ssh-add ~/.ssh/*_id_rsa
 
 EXPOSE 3000
+EXPOSE 8080
+EXPOSE 9000
 
 # Start zsh
 ENV ZSH_THEME agnoster
