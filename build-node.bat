@@ -1,0 +1,1 @@
+docker build -t quachn/node --force-rm -f Dockerfile-node .

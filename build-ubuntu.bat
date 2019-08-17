@@ -1,0 +1,1 @@
+docker build -t quachn/ubuntu --force-rm -f Dockerfile-ubuntu .

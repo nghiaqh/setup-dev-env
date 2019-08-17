@@ -5,4 +5,4 @@ docker run --rm -it ^
 -p 8080:8080 ^
 -p 9000:9000 ^
 -w /root/projects/ ^
-quachn/node-10
+quachn/ubuntu
