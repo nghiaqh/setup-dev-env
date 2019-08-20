@@ -13,15 +13,22 @@ RUN set -x && \
     vim \
     git \
     zsh \
-    openssh-client \
-  && rm -rf /var/cache/apk/*
+    openssh-client && \
+  rm -rf /var/cache/apk/*
+
+# Install Python 2 (for node-gyp)
+RUN apk add --no-cache python && \
+  python -m ensurepip && \
+  rm -r /usr/lib/python*/ensurepip && \
+  pip install --upgrade pip setuptools && \
+  rm -r /root/.cache
 
 # Copy ssh keys
 COPY .ssh /root/.ssh
-RUN chmod 400 /root/.ssh/*_id_rsa \
-  && chmod 600 /root/.ssh/*.pub \
-  && eval $(ssh-agent -s) \
-  && ssh-add ~/.ssh/*_id_rsa
+RUN chmod 400 /root/.ssh/*_id_rsa && \
+  chmod 600 /root/.ssh/*.pub && \
+  eval $(ssh-agent -s) && \
+  ssh-add ~/.ssh/*_id_rsa
 
 # Install oh-my-zsh
 RUN curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
