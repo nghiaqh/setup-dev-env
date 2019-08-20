@@ -30,6 +30,11 @@ RUN chmod 400 /root/.ssh/*_id_rsa && \
   eval $(ssh-agent -s) && \
   ssh-add ~/.ssh/*_id_rsa
 
+# Setup Yarn cache
+ENV YARN_CACHE_FOLDER /yarn_cache
+RUN mkdir -p $YARN_CACHE_FOLDER
+RUN yarn config set cache-folder $YARN_CACHE_FOLDER
+
 # Install oh-my-zsh
 RUN curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
 
