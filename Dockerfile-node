@@ -13,6 +13,7 @@ RUN set -x && \
     vim \
     git \
     zsh \
+    make \
     openssh-client && \
   rm -rf /var/cache/apk/*
 
@@ -30,10 +31,18 @@ RUN chmod 400 /root/.ssh/*_id_rsa && \
   eval $(ssh-agent -s) && \
   ssh-add ~/.ssh/*_id_rsa
 
-# Setup Yarn cache
+# Update Yarn
+RUN curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+
+# Setup yarn cache folder
 ENV YARN_CACHE_FOLDER /yarn_cache
-RUN mkdir -p $YARN_CACHE_FOLDER
-RUN yarn config set cache-folder $YARN_CACHE_FOLDER
+RUN mkdir -p $YARN_CACHE_FOLDER && \
+  yarn config set cache-folder $YARN_CACHE_FOLDER
+
+# Setup npm cache folder
+ENV NPM_CACHE_FOLDER /npm_cache
+RUN mkdir -p $NPM_CACHE_FOLDER && \
+  npm config set cache $NPM_CACHE_FOLDER --global
 
 # Install oh-my-zsh
 RUN curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
