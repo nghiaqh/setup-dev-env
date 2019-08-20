@@ -13,7 +13,7 @@ RUN set -x && \
     vim \
     git \
     zsh \
-    make \
+    build-base \
     openssh-client && \
   rm -rf /var/cache/apk/*
 
@@ -32,6 +32,8 @@ RUN chmod 400 /root/.ssh/*_id_rsa && \
   ssh-add ~/.ssh/*_id_rsa
 
 # Update Yarn
+# Set docker default shell to bash login shell
+SHELL ["/bin/bash", "--login", "-c"]
 RUN curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
 
 # Setup yarn cache folder
@@ -47,6 +49,5 @@ RUN mkdir -p $NPM_CACHE_FOLDER && \
 # Install oh-my-zsh
 RUN curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | bash
 
-# Start zsh
-ENV ZSH_THEME agnoster
-CMD ["zsh"]
+# Start bash
+CMD ["bash"]
